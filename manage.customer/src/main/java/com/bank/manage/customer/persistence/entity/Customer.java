@@ -14,16 +14,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer  {
-
+	
+	///   private static final long serialVersionUID = 1L;
+	   
+	   
 	    @Id
 	    private String id;
 	    private String firstName;
 	    private String lastName;
-	    private Long phone;
-	    private String email;
-	    private String address;
+	    private String documentType ;
+	    private String mail;
+	    private Long   phone;
 	    private String state;
-	    private String date;
 	    
 	
 	
