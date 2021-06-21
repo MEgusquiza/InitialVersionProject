@@ -11,6 +11,5 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface CustomerRepository extends ReactiveMongoRepository<Customer,String> {
 	
-	//Flux<Customer> findByFirstName(String name);
-	//Mono<Customer> findByIdAndDeleteIsFalse(String id);
+
  }
