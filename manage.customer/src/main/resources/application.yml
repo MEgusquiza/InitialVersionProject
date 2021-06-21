@@ -1,6 +1,5 @@
-
-   
-   
+  
+#Conextion to Mongo DB
 spring:
-    application:     name: CUSTOMER    data:
-         mongodb:           uri: mongodb://localhost:27017/CUSTOMER                 # security:       #   user: .        #   password: 123
+    application:     name: customerManagement    data:
+         mongodb:           uri: mongodb://localhost:27017/customerManagement       

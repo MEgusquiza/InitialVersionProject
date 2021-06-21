@@ -8,16 +8,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+// Implementa estereotipos Lombok para cargar propiedades del Collection 
 
-@Document(collection = "tbk_customer")
+@Document(collection = "collCustomerManagement")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer  {
-	
-	///   private static final long serialVersionUID = 1L;
-	   
-	   
+public class Customer  {	   
 	    @Id
 	    private String id;
 	    private String firstName;

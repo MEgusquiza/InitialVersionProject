@@ -1,42 +1,40 @@
 package com.bank.manage.customer.domain.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.server.ServerRequest;
-import org.springframework.web.reactive.function.server.ServerResponse;
-
 import com.bank.manage.customer.domain.repository.CustomerRepository;
 import com.bank.manage.customer.persistence.entity.Customer;
-
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+	private final Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImpl.class);
+	
 	   @Autowired
 	   private CustomerRepository customerRepository;
 	   
-	   
+	     // get Customer by Id
 		public Mono<Customer> getByIdCustomer(String id) {
 			return customerRepository.findById(id)
 					.switchIfEmpty(Mono.error(new Exception("No Customer found with Id: " + id)));
 		}
-	   
+		// get All Customer
 	    public Flux<Customer> getAllCustomer() {
 	        long start = System.currentTimeMillis();
 	        Flux<Customer> customers = customerRepository.findAll() ;
 	        long end = System.currentTimeMillis();
-	        System.out.println("customerRepositoryTotal execution time : " + (end - start));
+	        LOGGER.debug("customerRepositoryTotal execution time : " + (end - start));
 	        return customers;
 	    }
-	    
+	   // create Customer
 	    public Mono<Customer> createCustomer(Customer customer) {
 	        return customerRepository.insert(customer);
 	    }   
-	    
+	    //update Customer
 		public Mono<Customer> updateCustomer(Customer customer , String id) {
 			return getByIdCustomer(id).doOnNext(
 	                  findCustomer -> {
@@ -49,24 +47,12 @@ public class CustomerServiceImpl implements CustomerService {
 	                	  customerRepository.save(findCustomer).subscribe();
 	                	  }).switchIfEmpty(Mono.error(new Exception("No Customer found.... " + id)));
 		}
-	   
+	     // delete Customer by Id
 	    public Mono<Void> deleteByIdCustomer(String id){
 	        return customerRepository.deleteById(id);
 	    }
-
+         // delete All Customers
 	    public Mono<Void> deleteAllCustomer() {
 	        return customerRepository.deleteAll();
-	    }
-	    
-	/*    public Mono<ServerResponse> createCustomer(ServerRequest serverRequest){
-	        Mono<Customer> studentMono = serverRequest.bodyToMono(Customer.class);
-	        return  studentMono.flatMap(student ->
-	                 ServerResponse.status(HttpStatus.CREATED)
-	                        .contentType(MediaType.APPLICATION_JSON)
-	                        .body(customerRepository.save(student),Customer.class) );
-	    }
-*/
-	    
-	    
-	    
+	    }    
 }
