@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-// Implementa estereotipos Lombok para cargar propiedades del Collection 
+// Implement lombok  by MongoDB Collections  
 
 @Document(collection = "collCustomerManagement")
 @Data
